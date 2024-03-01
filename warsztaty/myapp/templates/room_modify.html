@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Edytuj Salę</title>
+    <style>
+        body {
+            margin-left: 20px;
+            margin-right: 20px;
+        }
+        a {
+            margin-left: 8px;
+            margin-right: 8px;
+        }
+    </style>
+</head>
+<body>
+{% block title %}
+<h2>Edytuj salę</h2><h5> Id sali: {{room.id}}</h5>
+{% endblock %}
+    {% block content %}
+        {% if room %}
+        <ul>
+            <li>Nazwa sali: {{room.nazwa}}</li>
+            <li>Pojemność: {{room.pojemnosc}}</li>
+            <li>Dostępność rzutnika: {{room.rzutnik_dostepny|yesno:"Tak,Nie"}}</li>
+            <li>Zarezerwowane na:
+            {% if reservations %}
+                {% for rezerv in reservations %}
+                  {{rezerv.data}}
+                {% endfor %}
+            {% else %} Brak danych
+            {% endif %}
+            </li>
+        </ul>
+        <p>Dostępne opcje:</p>
+        <form method="post">
+            {% csrf_token %}
+            <p><label>Nazwa sali:
+            <input type="text" name="edyt_nazwa" required></label></p>
+
+            <p><label>Pojemność:
+            <input type="number" name="edyt_pojemnosc" min="1" required></label></p>
+
+            <p><label>Dostępność rzutnika:
+            <input type="checkbox" step="1" name="edyt_rzutnik_dostepny"></label></p>
+
+            <p><input type="submit" value="Edytuj"></p>
+
+        </form>
+
+        <br><a href="/room/{{room.id}}/">Wróć</a><a href="/room/list/">Lista Sal</a>
+        {% else %}
+            <p>Nie ma takiej sali</p>
+        {% endif %}
+    {% endblock %}
+</body>
+</html>

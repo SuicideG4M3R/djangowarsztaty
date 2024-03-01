@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Szczegóły Sali</title>
+    <style>
+        body {
+            margin-left: 20px;
+            margin-right: 20px;
+        }
+        a {
+            margin-left: 8px;
+            margin-right: 8px;
+        }
+    </style>
+</head>
+<body>
+{% block title %}
+<h2>Szczegóły Sali</h2><h5> Id sali: {{room.id}}</h5>
+{% endblock %}
+    {% block content %}
+        {% if room %}
+        <ul>
+            <li>Nazwa sali: {{room.nazwa}}</li>
+            <li>Pojemność: {{room.pojemnosc}}</li>
+            <li>Dostępność rzutnika: {{room.rzutnik_dostepny|yesno:"Tak,Nie"}}</li>
+            <li>Zarezerwowane na:
+            {% if reservations %}
+                {% for rezerv in reservations %}
+                  {{rezerv.data}}
+                {% endfor %}
+            {% else %} Brak danych
+            {% endif %}
+            </li>
+        </ul>
+        <p>Dostępne opcje:</p>
+        <a href="/room/modify/{{ room.id }}/">Edytuj</a>
+        <a href="/room/delete/{{ room.id }}/">Usuń</a>
+        <a href="/room/reserve/{{ room.id }}/">Zarezerwuj</a>
+        <br>
+        <p><a href="/room/list/">Lista Sal</a></p>
+        {% else %}
+            <p>Nie ma takiej sali</p>
+        {% endif %}
+    {% endblock %}
+</body>
+</html>

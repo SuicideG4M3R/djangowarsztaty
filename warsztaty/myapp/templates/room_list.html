@@ -1,0 +1,26 @@
+{% extends 'index.html' %}
+
+{% block title %}Lista Sal{% endblock %}
+
+{% block content %}
+    <h2>Lista Sal</h2>
+    {% if lista_sal %}
+        <ul>
+            {% for sala in lista_sal %}
+                <li>
+                    <p>
+                    Nazwa sali: {{sala.nazwa}}<br>
+                    Id: {{sala.id}}<br>
+                    Pojemność: {{sala.pojemnosc}}<br>
+                    Dostępność rzutnika: {{sala.rzutnik_dostepny|yesno:"Tak,Nie"}}<br>
+                    Status: {{sala.status}}<br>
+                    <a style="margin-left: 10px;" href="/room/{{sala.id}}/">Szczegóły</a>
+                    </p>
+
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>Brak dostępnych sal.</p>
+    {% endif %}
+{% endblock %}

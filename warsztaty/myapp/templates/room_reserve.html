@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Zarezerwuj Salę</title>
+    <style>
+        body {
+            margin-left: 20px;
+            margin-right: 20px;
+        }
+        a {
+            margin-left: 8px;
+            margin-right: 8px;
+        }
+    </style>
+</head>
+<body>
+{% block title %}
+<h2>Zarezerwuj salę</h2><h5> Id sali: {{room.id}}</h5>
+{% endblock %}
+    {% block content %}
+        {% if room %}
+        <ul>
+            <li>Nazwa sali: {{room.nazwa}}</li>
+            <li>Pojemność: {{room.pojemnosc}}</li>
+            <li>Dostępność rzutnika: {{room.rzutnik_dostepny|yesno:"Tak,Nie"}}</li>
+            <li>Zarezerwowane na:
+            {% if reservations %}
+                {% for rezerv in reservations %}
+                  {{rezerv.data}}
+                {% endfor %}
+            {% else %} Brak danych
+            {% endif %}
+            </li>
+        <p>Dostępne opcje:</p>
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+        <p><input type="submit" value="Zarezerwuj"></p>
+        </form>
+        {% if odpowiedz %}
+            <p>{{odpowiedz}}</p>
+        {% endif %}
+
+        <br><a href="/room/{{room.id}}/">Wróć</a><a href="/room/list/">Lista Sal</a>
+        {% else %}
+            <p>Nie ma takiej sali</p>
+        {% endif %}
+    {% endblock %}
+</body>
+</html>

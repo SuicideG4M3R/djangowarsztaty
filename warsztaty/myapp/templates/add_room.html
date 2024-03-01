@@ -1,0 +1,22 @@
+
+{% extends 'index.html' %}
+
+{% block title %}Dodaj Salę{% endblock %}
+
+{% block content %}
+    <h2>Dodaj Salę</h2>
+
+    <form method="post" action="{% url 'add_room' %}">
+        {% csrf_token %}
+
+        {{ form.as_p }}
+
+        <button type="submit">Dodaj Salę</button>
+    </form>
+
+    {% if error_message %}
+        <p style="color: red;">{{ error_message }}</p>
+    {% endif %}
+
+    <a href="{% url 'room_list' %}">Powrót do listy sal</a>
+{% endblock %}

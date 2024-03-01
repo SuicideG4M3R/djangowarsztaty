@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Strona Główna{% endblock %}</title>
+</head>
+<body>
+
+<header>
+    <h1>System Zarządzania Salami</h1>
+    <nav>
+        <ul>
+            <li><a href="{% url 'room_list' %}">Lista Sal</a></li>
+            <li><a href="{% url 'add_room' %}">Dodaj Salę</a></li>
+        </ul>
+    </nav>
+</header>
+
+<main>
+    {% block content %}{% endblock %}
+</main>
+
+<footer>
+    <p>Autor projektu: Robert Szczepański</p>
+</footer>
+
+</body>
+</html>
